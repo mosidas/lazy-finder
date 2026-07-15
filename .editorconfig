@@ -1,5 +1,4 @@
 # EditorConfig is awesome: https://EditorConfig.org
-# 共通ベース（raven development-standard / config-template/common を基に拡張）
 
 # top-most EditorConfig file
 root = true
