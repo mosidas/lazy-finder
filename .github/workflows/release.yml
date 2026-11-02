@@ -38,7 +38,9 @@ jobs:
           cache: false
 
       - name: Test
-        run: make test
+        run: |
+          make vet
+          make test
 
       - name: Build application
         run: make dist TAG="$GITHUB_REF_NAME"
