@@ -36,6 +36,7 @@ macOS の配布物は公証していないため、ブラウザーでダウン�
 ## 実行
 
 ```sh
+lazy-finder [起動ディレクトリ] # Releases から入れて PATH に置いた場合
 ./bin/lazy-finder            # カレントディレクトリで起動
 ./bin/lazy-finder ~/Projects # 任意のディレクトリで起動
 
@@ -43,7 +44,7 @@ macOS の配布物は公証していないため、ブラウザーでダウン�
 go run . [起動ディレクトリ]
 ```
 
-依存: Go 1.25+。VS Code 連携には `code` コマンドが PATH に必要です（VS Code の「シェルコマンド: PATH内に'code'コマンドをインストール」）。
+VS Code 連携には `code` コマンドが PATH に必要です（VS Code の「シェルコマンド: PATH内に'code'コマンドをインストール」）。
 
 ## キーバインド
 
