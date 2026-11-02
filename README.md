@@ -22,19 +22,29 @@ macOS の Finder（カラムビュー）をベースに、[lazygit](https://gith
 - **VS Code 連携**: `e` でカレント（またはカーソル上のフォルダ）を `code` で開く
 - **安全な削除**: 完全削除ではなく macOS の `~/.Trash` へ移動（Linux では freedesktop のゴミ箱）
 
-## インストール / 実行
+## インストール
+
+[Releases](https://github.com/mosidas/lazy-finder/releases) から `lazy-finder-<バージョン>-<os>-<arch>.tar.gz` をダウンロードして展開し、`lazy-finder` を PATH の通ったディレクトリ(例: `/usr/local/bin`)へ移す。Apple Silicon の Mac は `darwin-arm64`、Intel の Mac は `darwin-amd64`、Linux は `linux-amd64` か `linux-arm64` を選ぶ。
+
+macOS の配布物は公証していないため、ブラウザーでダウンロードしたものは初回の実行が Gatekeeper に止められる。次のどちらかで実行を許可する。
+
+- ターミナルで `xattr -d com.apple.quarantine /usr/local/bin/lazy-finder` を実行し、隔離属性を外す。
+- 一度実行してブロックされたあと、システム設定 > プライバシーとセキュリティ の下部にある「このまま開く」を押す。
+
+ソースからビルドするときは、Go 1.25 以上を入れたうえで `make build` を実行し、できた `./bin/lazy-finder` を使う。`go install .` で `$GOBIN` に入れてもよい。
+
+## 実行
 
 ```sh
-make build          # ./bin/lazy-finder を生成
+lazy-finder [起動ディレクトリ] # Releases から入れて PATH に置いた場合
 ./bin/lazy-finder            # カレントディレクトリで起動
 ./bin/lazy-finder ~/Projects # 任意のディレクトリで起動
 
 # もしくは直接
 go run . [起動ディレクトリ]
-go install .        # $GOBIN にインストール
 ```
 
-依存: Go 1.25+。VS Code 連携には `code` コマンドが PATH に必要です（VS Code の「シェルコマンド: PATH内に'code'コマンドをインストール」）。
+VS Code 連携には `code` コマンドが PATH に必要です（VS Code の「シェルコマンド: PATH内に'code'コマンドをインストール」）。
 
 ## キーバインド
 
