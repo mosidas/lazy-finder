@@ -72,8 +72,9 @@ type Model struct {
 	help   help.Model
 }
 
-// New builds a Model rooted at startDir (falling back to the home directory).
-func New(startDir string) (Model, error) {
+// New builds a Model rooted at startDir (falling back to the home directory),
+// painted with theme t.
+func New(startDir string, t Theme) (Model, error) {
 	abs, err := filepath.Abs(startDir)
 	if err != nil {
 		return Model{}, err
@@ -81,6 +82,8 @@ func New(startDir string) (Model, error) {
 	if info, err := os.Stat(abs); err != nil || !info.IsDir() {
 		abs = fsops.HomeDir()
 	}
+
+	applyTheme(t)
 
 	ti := textinput.New()
 	ti.Prompt = "› "

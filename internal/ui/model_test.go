@@ -7,17 +7,42 @@ import (
 	"testing"
 
 	tea "github.com/charmbracelet/bubbletea"
+	"github.com/charmbracelet/lipgloss"
 )
 
 // sized returns a model with a window size applied so View() renders fully.
 func sized(t *testing.T, dir string) Model {
 	t.Helper()
-	m, err := New(dir)
+	th, err := LookupTheme(DefaultThemeName)
+	if err != nil {
+		t.Fatal(err)
+	}
+	m, err := New(dir, th)
 	if err != nil {
 		t.Fatal(err)
 	}
 	updated, _ := m.Update(tea.WindowSizeMsg{Width: 100, Height: 30})
 	return updated.(Model)
+}
+
+func TestNewAppliesTheme(t *testing.T) {
+	dir := t.TempDir()
+	for _, c := range []struct{ name, accent string }{
+		{"min-light", "#424242"},
+		{"ayu-light", "#FA8D3E"},
+	} {
+		th, err := LookupTheme(c.name)
+		if err != nil {
+			t.Fatal(err)
+		}
+		m, err := New(dir, th)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if got := m.styles.panelActive.GetBorderTopForeground(); got != lipgloss.Color(c.accent) {
+			t.Errorf("%s: active border = %v, want %s", c.name, got, c.accent)
+		}
+	}
 }
 
 func keyMsg(s string) tea.KeyMsg { return tea.KeyMsg{Type: tea.KeyRunes, Runes: []rune(s)} }

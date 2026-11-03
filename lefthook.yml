@@ -1,0 +1,10 @@
+pre-commit:
+  commands:
+    vet:
+      run: go vet ./...
+    fmt:
+      run: test -z "$(gofmt -l .)"
+pre-push:
+  commands:
+    test:
+      run: go test ./...
