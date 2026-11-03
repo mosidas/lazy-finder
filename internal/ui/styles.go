@@ -2,35 +2,34 @@ package ui
 
 import "github.com/charmbracelet/lipgloss"
 
-// Ayu Light palette. The UI paints an explicit light background so it keeps the
-// ayu look regardless of the terminal's own background colour.
-const (
-	hexBG     = "#FAFAFA" // editor background
-	hexBGSel  = "#D6E5F3" // cursor row — light blue selection
-	hexBGMark = "#E6E8EB" // parent selection / status chip
-	hexFG     = "#5C6166" // primary text
-	hexAccent = "#FA8D3E" // orange accent (focused border, marks)
-	hexBlue   = "#399EE6" // directories, titles
-	hexCyan   = "#55B4D4" // symlinks
-	hexGreen  = "#86B300" // success
-	hexRed    = "#E65050" // errors
-	hexMuted  = "#8A9199" // comments / muted text
-	hexBorder = "#C5C9CE" // inactive border
+var (
+	colBG     lipgloss.Color
+	colBGSel  lipgloss.Color
+	colBGMark lipgloss.Color
+	colFG     lipgloss.Color
+	colAccent lipgloss.Color
+	colBlue   lipgloss.Color
+	colCyan   lipgloss.Color
+	colGreen  lipgloss.Color
+	colRed    lipgloss.Color
+	colMuted  lipgloss.Color
+	colBorder lipgloss.Color
 )
 
-var (
-	colBG     = lipgloss.Color(hexBG)
-	colBGSel  = lipgloss.Color(hexBGSel)
-	colBGMark = lipgloss.Color(hexBGMark)
-	colFG     = lipgloss.Color(hexFG)
-	colAccent = lipgloss.Color(hexAccent)
-	colBlue   = lipgloss.Color(hexBlue)
-	colCyan   = lipgloss.Color(hexCyan)
-	colGreen  = lipgloss.Color(hexGreen)
-	colRed    = lipgloss.Color(hexRed)
-	colMuted  = lipgloss.Color(hexMuted)
-	colBorder = lipgloss.Color(hexBorder)
-)
+// applyTheme sets the palette that newStyles and the view read.
+func applyTheme(t Theme) {
+	colBG = lipgloss.Color(t.BG)
+	colBGSel = lipgloss.Color(t.BGSel)
+	colBGMark = lipgloss.Color(t.BGMark)
+	colFG = lipgloss.Color(t.FG)
+	colAccent = lipgloss.Color(t.Accent)
+	colBlue = lipgloss.Color(t.Blue)
+	colCyan = lipgloss.Color(t.Cyan)
+	colGreen = lipgloss.Color(t.Green)
+	colRed = lipgloss.Color(t.Red)
+	colMuted = lipgloss.Color(t.Muted)
+	colBorder = lipgloss.Color(t.Border)
+}
 
 type styles struct {
 	panelActive   lipgloss.Style

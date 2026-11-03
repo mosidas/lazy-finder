@@ -12,7 +12,11 @@ import (
 // sized returns a model with a window size applied so View() renders fully.
 func sized(t *testing.T, dir string) Model {
 	t.Helper()
-	m, err := New(dir)
+	th, err := LookupTheme(DefaultThemeName)
+	if err != nil {
+		t.Fatal(err)
+	}
+	m, err := New(dir, th)
 	if err != nil {
 		t.Fatal(err)
 	}

@@ -20,7 +20,13 @@ func main() {
 		start = flag.Arg(0)
 	}
 
-	model, err := ui.New(start)
+	theme, err := ui.LookupTheme(ui.DefaultThemeName)
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "lazy-finder:", err)
+		os.Exit(1)
+	}
+
+	model, err := ui.New(start, theme)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "lazy-finder:", err)
 		os.Exit(1)
