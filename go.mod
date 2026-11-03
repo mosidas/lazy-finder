@@ -1,4 +1,4 @@
-module github.com/syouta-yamaguchi-rv/lazy-finder
+module github.com/mosidas/lazy-finder
 
 go 1.25.11
 

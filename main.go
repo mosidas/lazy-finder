@@ -9,7 +9,7 @@ import (
 
 	tea "github.com/charmbracelet/bubbletea"
 
-	"github.com/syouta-yamaguchi-rv/lazy-finder/internal/ui"
+	"github.com/mosidas/lazy-finder/internal/ui"
 )
 
 func main() {

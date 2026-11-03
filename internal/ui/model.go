@@ -10,7 +10,7 @@ import (
 	"github.com/charmbracelet/bubbles/textinput"
 	tea "github.com/charmbracelet/bubbletea"
 
-	"github.com/syouta-yamaguchi-rv/lazy-finder/internal/fsops"
+	"github.com/mosidas/lazy-finder/internal/fsops"
 )
 
 type mode int

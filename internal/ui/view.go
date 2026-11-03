@@ -6,7 +6,7 @@ import (
 
 	"github.com/charmbracelet/lipgloss"
 
-	"github.com/syouta-yamaguchi-rv/lazy-finder/internal/fsops"
+	"github.com/mosidas/lazy-finder/internal/fsops"
 )
 
 // View implements tea.Model.
