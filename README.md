@@ -48,7 +48,7 @@ lazy-finder --theme ayu-light
 LAZY_FINDER_THEME=ayu-light lazy-finder
 ```
 
-`--theme` は環境変数 `LAZY_FINDER_THEME` より優先します。
+`--theme` は環境変数 `LAZY_FINDER_THEME` より優先します。`--theme` は起動ディレクトリより前に書きます（後ろに書くと無視されます）。
 
 VS Code 連携には `code` コマンドが PATH に必要です（VS Code の「シェルコマンド: PATH内に'code'コマンドをインストール」）。
 
