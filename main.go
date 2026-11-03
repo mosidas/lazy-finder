@@ -6,6 +6,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"strings"
 
 	tea "github.com/charmbracelet/bubbletea"
 
@@ -13,6 +14,8 @@ import (
 )
 
 func main() {
+	themeFlag := flag.String("theme", "", fmt.Sprintf("colour theme: %s (default %s; env LAZY_FINDER_THEME)",
+		strings.Join(ui.ThemeNames(), ", "), ui.DefaultThemeName))
 	flag.Parse()
 
 	start := "."
@@ -20,7 +23,7 @@ func main() {
 		start = flag.Arg(0)
 	}
 
-	theme, err := ui.LookupTheme(ui.DefaultThemeName)
+	theme, err := ui.LookupTheme(ui.ResolveThemeName(*themeFlag, os.Getenv("LAZY_FINDER_THEME")))
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "lazy-finder:", err)
 		os.Exit(1)
