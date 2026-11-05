@@ -1,6 +1,6 @@
 # lazy-finder
 
-macOS の Finder のカラムビューを、[lazygit](https://github.com/jesseduffield/lazygit) 風の枠線の画面で操作するターミナル用のファイラー。
+macOS の Finder のカラムビューに倣った 3 列の画面を、[lazygit](https://github.com/jesseduffield/lazygit) 風の枠線で表示するターミナル用のファイラー。
 
 ```
 ┌─親──────┐┌─Documents──────────┐┌─プレビュー──────────┐
@@ -41,8 +41,6 @@ macOS の Finder のカラムビューを、[lazygit](https://github.com/jessedu
 4. `space` でファイルを選択し、`y` でコピーする。
 5. コピー先のフォルダーへ移動し、`p` で貼り付ける。
 6. `q` で終了する。
-
-キーの一覧は `?` で表示する。`d` の削除は、ファイルをゴミ箱へ移動する。
 
 テーマを変えるには、[lazy-finder のオプションとキー](docs/reference.md) の `--theme` を指定する。
 
