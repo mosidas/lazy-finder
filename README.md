@@ -24,7 +24,7 @@ macOS の Finder のカラムビューを、[lazygit](https://github.com/jessedu
 
 1. [Releases](https://github.com/mosidas/lazy-finder/releases) から `lazy-finder-<バージョン>-<os>-<arch>.tar.gz` をダウンロードして展開する。Apple Silicon の Mac は `darwin-arm64`、Intel の Mac は `darwin-amd64`、Linux は `linux-amd64` か `linux-arm64` である。
 2. `lazy-finder` を PATH の通ったディレクトリ(例: `/usr/local/bin`)へ移す。
-3. macOS では、配布物を公証していないため初回の実行が Gatekeeper に止められる。ターミナルで `xattr -d com.apple.quarantine /usr/local/bin/lazy-finder` を実行し、隔離属性を外す。
+3. macOS では、配布物を公証していないため初回の実行が Gatekeeper に止められる。ターミナルで `xattr -d com.apple.quarantine "$(which lazy-finder)"` を実行し、隔離属性を外す。
 4. `lazy-finder --help` を実行する。
 
 ### ソースからビルドする
