@@ -1,6 +1,6 @@
 # lazy-finder
 
-macOS の Finder（カラムビュー）をベースに、[lazygit](https://github.com/jesseduffield/lazygit) 風の枠線UIでファイル操作ができる TUI ファイラです。Go + [Bubble Tea](https://github.com/charmbracelet/bubbletea) 製。
+macOS の Finder のカラムビューを、[lazygit](https://github.com/jesseduffield/lazygit) 風の枠線の画面で操作するターミナル用のファイラー。
 
 ```
 ┌─親──────┐┌─Documents──────────┐┌─プレビュー──────────┐
@@ -13,81 +13,47 @@ macOS の Finder（カラムビュー）をベースに、[lazygit](https://gith
  enter/l:開く  h:親へ  space:選択  y:コピー  p:貼り付け  d:ゴミ箱へ …
 ```
 
-## 特長
+## 動作環境
 
-- **3カラムのカラムビュー**: 親ディレクトリ / カレント / プレビュー（フォルダは中身、ファイルはテキストプレビュー）
-- **lazygit スタイル + 選べるテーマ**: 角丸枠線・フォーカスパネルのハイライト・下部ステータス/ヘルプバー。組み込みテーマ `min-light`（既定）と `ayu-light` から選べる（端末の背景色に依存せず明色で描画）
-- **基本操作**: コピー / 切り取り / 貼り付け / 名前変更 / 新規フォルダ / 削除（ゴミ箱へ移動）
-- **複数選択**: space でマークして一括操作
-- **VS Code 連携**: `e` でカレント（またはカーソル上のフォルダ）を `code` で開く
-- **安全な削除**: 完全削除ではなく macOS の `~/.Trash` へ移動（Linux では freedesktop のゴミ箱）
+- macOS(Apple Silicon と Intel)、Linux(amd64 と arm64)
+- `code` コマンド。フォルダーを VS Code で開く操作に使う
 
 ## インストール
 
-[Releases](https://github.com/mosidas/lazy-finder/releases) から `lazy-finder-<バージョン>-<os>-<arch>.tar.gz` をダウンロードして展開し、`lazy-finder` を PATH の通ったディレクトリ(例: `/usr/local/bin`)へ移す。Apple Silicon の Mac は `darwin-arm64`、Intel の Mac は `darwin-amd64`、Linux は `linux-amd64` か `linux-arm64` を選ぶ。
+### Releases から
 
-macOS の配布物は公証していないため、ブラウザーでダウンロードしたものは初回の実行が Gatekeeper に止められる。次のどちらかで実行を許可する。
+1. [Releases](https://github.com/mosidas/lazy-finder/releases) から `lazy-finder-<バージョン>-<os>-<arch>.tar.gz` をダウンロードして展開する。Apple Silicon の Mac は `darwin-arm64`、Intel の Mac は `darwin-amd64`、Linux は `linux-amd64` か `linux-arm64` である。
+2. `lazy-finder` を PATH の通ったディレクトリ(例: `/usr/local/bin`)へ移す。
+3. macOS では、配布物を公証していないため初回の実行が Gatekeeper に止められる。ターミナルで `xattr -d com.apple.quarantine /usr/local/bin/lazy-finder` を実行し、隔離属性を外す。
+4. `lazy-finder --help` を実行する。
 
-- ターミナルで `xattr -d com.apple.quarantine /usr/local/bin/lazy-finder` を実行し、隔離属性を外す。
-- 一度実行してブロックされたあと、システム設定 > プライバシーとセキュリティ の下部にある「このまま開く」を押す。
+### ソースからビルドする
 
-ソースからビルドするときは、Go 1.25 以上を入れたうえで `make build` を実行し、できた `./bin/lazy-finder` を使う。`go install .` で `$GOBIN` に入れてもよい。
+1. Go 1.25 以上をインストールする。
+2. `make build` を実行する。`./bin/lazy-finder` ができる。
+3. `./bin/lazy-finder --help` を実行する。
 
-## 実行
+## 使い方
 
-```sh
-lazy-finder [起動ディレクトリ] # Releases から入れて PATH に置いた場合
-./bin/lazy-finder            # カレントディレクトリで起動
-./bin/lazy-finder ~/Projects # 任意のディレクトリで起動
+1. `lazy-finder <ディレクトリ>` を実行する。ディレクトリを省くと、カレントディレクトリで開く。
+2. `j` と `k` でカーソルを動かす。
+3. `l` でフォルダーに入る。`h` で親フォルダーへ戻る。
+4. `space` でファイルを選択し、`y` でコピーする。
+5. コピー先のフォルダーへ移動し、`p` で貼り付ける。
+6. `q` で終了する。
 
-# もしくは直接
-go run . [起動ディレクトリ]
+キーの一覧は `?` で表示する。`d` の削除は、ファイルをゴミ箱へ移動する。
 
-# テーマを選ぶ（min-light が既定）
-lazy-finder --theme ayu-light
-LAZY_FINDER_THEME=ayu-light lazy-finder
-```
-
-`--theme` は環境変数 `LAZY_FINDER_THEME` より優先します。`--theme` は起動ディレクトリより前に書きます（後ろに書くと無視されます）。
-
-VS Code 連携には `code` コマンドが PATH に必要です（VS Code の「シェルコマンド: PATH内に'code'コマンドをインストール」）。
-
-## キーバインド
-
-| キー | 動作 |
-| --- | --- |
-| `↑`/`k`, `↓`/`j` | カーソル移動 |
-| `g` / `G` | 先頭 / 末尾へ |
-| `enter` / `l` / `→` | フォルダに入る / ファイルを標準アプリで開く |
-| `h` / `←` / `backspace` | 親フォルダへ |
-| `~` | ホームディレクトリへ |
-| `space` | 選択（マーク）のトグル |
-| `y` / `x` | コピー / 切り取り |
-| `p` | 貼り付け（カレントへ） |
-| `d` | ゴミ箱へ移動（確認あり） |
-| `r` | 名前変更 |
-| `n` | 新規フォルダ |
-| `o` | 標準アプリで開く |
-| `e` | VS Code で開く |
-| `.` | 隠しファイルの表示切替 |
-| `R` / `Ctrl+R` | 再読込 |
-| `?` | ヘルプ |
-| `q` / `Ctrl+C` | 終了 |
-
-選択（マーク）がある場合は `y`/`x`/`d` はマークした全項目が対象、無ければカーソル上の項目が対象になります。
-
-## 構成
-
-```
-main.go                  エントリポイント
-internal/fsops/          ファイルシステム操作（一覧 / コピー / 移動 / ゴミ箱 / プレビュー）
-internal/ui/             Bubble Tea の Model / Update / View・キーバインド・スタイル
-```
+テーマを変えるには、[lazy-finder のオプションとキー](docs/reference.md) の `--theme` を指定する。
 
 ## 開発
 
+道具とビルドは「ソースからビルドする」の手順と同じである。テストは次のコマンドで実行する。
+
 ```sh
-make test    # ユニットテスト
-make vet     # go vet
-make fmt     # gofmt
+make test
 ```
+
+## ライセンス
+
+[MIT License](LICENSE)
